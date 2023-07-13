@@ -21,9 +21,14 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler {
                     val appConfig = Gson().fromJson(args, AppConfig::class.java)
                     val appPackageName = appConfig.androidPackageName
                     try {
-                        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName"))
+                        intent.setPackage("com.android.vending")
+                        activity.startActivity(intent)
                     } catch (anfe: android.content.ActivityNotFoundException) {
-                        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName"))
+                        activity.startActivity(intent)
                     }
                 } ?: result.error("Invalid format", null, null)
                 result.success(null)
