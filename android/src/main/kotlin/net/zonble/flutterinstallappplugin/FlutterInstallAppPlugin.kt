@@ -1,6 +1,7 @@
 package net.zonble.flutterinstallappplugin
 
 import android.app.Activity
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -57,7 +58,7 @@ class FlutterInstallAppPlugin : FlutterPlugin, ActivityAware {
     }
 }
 
-
+@Keep
 data class AppConfig(
         @SerializedName("androidPackageName") var androidPackageName: String
 )
