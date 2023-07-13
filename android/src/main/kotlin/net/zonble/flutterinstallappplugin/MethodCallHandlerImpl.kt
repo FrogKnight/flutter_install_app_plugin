@@ -3,6 +3,7 @@ package net.zonble.flutterinstallappplugin
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import com.google.gson.Gson
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -22,7 +23,9 @@ class MethodCallHandlerImpl : MethodChannel.MethodCallHandler {
                     val appPackageName = appConfig.androidPackageName
                     try {
                         val intent = Intent(Intent.ACTION_VIEW)
-                        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName"))
+                        val url = Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        Log.d("FlutterInstallAppPlugin", "url: $url")
+                        intent.setData(url)
                         intent.setPackage("com.android.vending")
                         activity.startActivity(intent)
                     } catch (anfe: android.content.ActivityNotFoundException) {
